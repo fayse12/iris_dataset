@@ -3,6 +3,9 @@ from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
+#eğer url den değil de localde olan bir csv dosyasından veri setini okumak isteseydik;
+#file_path = "path/to/iris.csv"
+#iris_data = pd.read_csv(file_path, header=None, names=["sepal_length", "sepal_width", "petal_length", "petal_width", "class"])
 
 # Iris veri setini yükle
 url = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
