@@ -16,4 +16,4 @@ X_tsne = tsne.fit_transform(X)
 # Sonucu görselleştir
 plt.scatter(X_tsne[:, 0], X_tsne[:, 1], c=iris_data["class"].astype("category").cat.codes, cmap="viridis")
 plt.title("t-SNE Görselleştirmesi - Iris Veri Seti")
-plt.show()
+plt.show()   
