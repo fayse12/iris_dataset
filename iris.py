@@ -1,6 +1,8 @@
 import pandas as pd
 from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
+
 
 # Iris veri setini yükle
 url = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
@@ -13,7 +15,21 @@ X = iris_data.iloc[:, :-1]
 tsne = TSNE(n_components=2, random_state=42)
 X_tsne = tsne.fit_transform(X)
 
+# t-SNE sonuçlarını ve sınıf etiketlerini birleştir
+tsne_df = pd.DataFrame(X_tsne, columns=["Dimension 1", "Dimension 2"])
+tsne_df["class"] = iris_data["class"]
+
 # Sonucu görselleştir
-plt.scatter(X_tsne[:, 0], X_tsne[:, 1], c=iris_data["class"].astype("category").cat.codes, cmap="viridis")
+colors = {"Iris-setosa": "purple", "Iris-versicolor": "green", "Iris-virginica": "yellow"}
+plt.scatter(tsne_df["Dimension 1"], tsne_df["Dimension 2"], c=tsne_df["class"].map(colors), label=tsne_df["class"])
 plt.title("t-SNE Görselleştirmesi - Iris Veri Seti")
-plt.show()   
+
+# Renk çubuğunu ekle
+legend_elements = [Line2D([0], [0], marker='o', color='w', label='Setosa', markerfacecolor='purple', markersize=10),
+                   Line2D([0], [0], marker='o', color='w', label='Versicolor', markerfacecolor='green', markersize=10),
+                   Line2D([0], [0], marker='o', color='w', label='Virginica', markerfacecolor='yellow', markersize=10)]
+
+plt.legend(handles=legend_elements, title='Sınıflar')
+
+# Grafiği göster
+plt.show()
